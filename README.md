@@ -1,47 +1,80 @@
-# Smart Mood-Based Story and Music Recommender
+# Smart Mood-Based Story and Music Recommender 🎧📖
 
-A Flask web application that uses Natural Language Processing (NLP) to detect user mood from text input and recommends a short story and a song with a YouTube link.
+An AI-powered web application that detects the user's mood from text input and recommends a motivational story and music to improve emotional well-being.
 
-## Features
-- **Mood Detection**: Uses TF-IDF and Naive Bayes to classify moods: happy, sad, stress, and angry.
-- **Personalized Recommendations**: Suggests a story and a song based on the detected mood.
-- **Premium UI**: Modern, glassmorphism-inspired design with responsive layout.
+## 🚀 Features
 
-## Project Structure
-```text
+* **Mood Detection** using Natural Language Processing (TF-IDF + Naive Bayes)
+* **Song Recommendation** based on detected mood
+* **Story Recommendation** to motivate or calm the user
+* **YouTube Integration** for music playback
+* **Modern UI** with glassmorphism-inspired responsive design
+* **Multiple mood support**: happy, sad, stress, angry
+
+---
+
+## 🛠️ Technologies Used
+
+* Python
+* Flask
+* Natural Language Processing (NLP)
+* Scikit-learn
+* Pandas
+* HTML, CSS
+
+---
+
+## 📂 Project Structure
+
 Smart-Mood-Recommender/
 ├── app.py                  # Flask backend
 ├── train_model.py          # Model training script
 ├── mood_model.pkl          # Saved Naive Bayes model
 ├── tfidf_vectorizer.pkl    # Saved TF-IDF vectorizer
-├── dataset/
-│   ├── moods.csv           # Training data
-│   ├── stories.csv         # Stories database
-│   └── songs.csv           # Songs database
-├── static/
-│   └── style.css           # Premium styling
-└── templates/
-    ├── index.html          # Main page
-    └── result.html         # Results page
-```
 
-## Setup Instructions
+dataset/
+├── moods.csv               # Training data
+├── stories.csv             # Stories database
+├── songs.csv               # Songs database
 
-1. **Install Dependencies**:
-   ```bash
-   pip install flask pandas scikit-learn joblib
-   ```
+static/
+└── style.css               # UI styling
 
-2. **Train the Model**:
-   (Already trained, but you can re-run if needed)
-   ```bash
-   python train_model.py
-   ```
+templates/
+├── index.html              # Main page
+└── result.html             # Results page
 
-3. **Run the Application**:
-   ```bash
-   python app.py
-   ```
+---
 
-4. **Access the Web App**:
-   Open your browser and go to `http://127.0.0.1:5000`
+## ⚙️ Setup Instructions
+
+### 1 Install Dependencies
+
+pip install flask pandas scikit-learn joblib
+
+### 2 Train the Model (Optional)
+
+python train_model.py
+
+### 3 Run the Application
+
+python app.py
+
+### 4 Open the Application
+
+http://127.0.0.1:5000
+
+---
+
+## 💡 Future Improvements
+
+* Add support for **multiple languages**
+* Recommend **multiple songs per mood**
+* Add **emotion detection using deep learning**
+* Deploy the application online
+
+---
+
+## 📌 Author
+
+Sudhakar Reddy
