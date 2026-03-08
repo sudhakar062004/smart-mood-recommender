@@ -7,10 +7,12 @@ An AI-powered web application that detects the user's mood from text input using
 ## 🚀 Features
 
 * **Mood Detection** using Machine Learning (TF-IDF + Naive Bayes)
-* **Song Recommendation** based on detected mood
-* **Story Recommendation** to motivate or calm the user
-* **YouTube Integration** for music playback
+* **Song Recommendation** (English, Telugu, Hindi)
+* **Story Recommendation** (Full stories for each mood)
+* **Spotify Integration** for live, dynamic music searching
+* **YouTube & JioSaavn Integration** for flexible playback
 * **Modern Premium UI** with glassmorphism-inspired responsive design
+* **Smart Shuffle** to explore different recommendations instantly
 * Supports multiple moods such as:
 
   * Happy
@@ -24,12 +26,12 @@ An AI-powered web application that detects the user's mood from text input using
 
 * **Python**
 * **Flask**
-* **Machine Learning**
-* **Natural Language Processing (NLP)**
-* **Scikit-learn**
-* **Pandas**
-* **HTML5**
-* **CSS3**
+* **Machine Learning** (Scikit-learn)
+* **Natural Language Processing** (TF-IDF)
+* **Pandas** (Data Analysis)
+* **Spotify Web API** (Spotipy)
+* **Python-dotenv** (Environment Management)
+* **HTML5 / CSS3 / JavaScript**
 
 ---
 
@@ -76,8 +78,17 @@ git clone https://github.com/sudhakar062004/smart-mood-recommender.git
 ### 2️⃣ Install Dependencies
 
 ```
-pip install flask pandas scikit-learn joblib
+pip install flask pandas scikit-learn joblib spotipy python-dotenv
 ```
+
+### 3️⃣ Configure Spotify API (Optional but Recommended)
+
+1. Create a `.env` file in the root directory.
+2. Add your Spotify credentials:
+   ```
+   SPOTIPY_CLIENT_ID=your_id_here
+   SPOTIPY_CLIENT_SECRET=your_secret_here
+   ```
 
 ### 3️⃣ Train the Model (Optional)
 
@@ -121,10 +132,10 @@ http://127.0.0.1:5000
 
 ## 💡 Future Improvements
 
-* Support **multiple languages**
-* Recommend **multiple songs per mood**
-* Use **Deep Learning for emotion detection**
-* Deploy the application online
+* **Deep Learning** for more nuanced emotion detection
+* **User Authentication** to save favorite recommendations
+* **Daily Mood Tracking** with visual charts
+* **Browser Extension** for quick mood-based music while browsing
 
 ---
 
