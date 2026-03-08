@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Mood Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container result-container">
+        <h1>🎭 Your Personalized Results</h1>
+        <div class="mood-badge">Mood: <strong>{{ mood }}</strong></div>
+
+        <!-- STORY SECTION -->
+        {% if show_only|default('') != 'songs' %}
+        <div class="section-card story-card">
+            <div class="section-header">
+                <span class="section-icon">🎬</span>
+                <h2>Story for Your Mood</h2>
+            </div>
+            <p class="story-text">{{ story_content }}</p>
+            <div class="story-source">— Inspired by: <em>{{ story_title }}</em></div>
+        </div>
+        {% endif %}
+
+        <!-- TOP PICK CARD -->
+        {% if show_only|default('') != 'story' and song_list|length > 0 %}
+        {% set top = song_list[0] %}
+        <div class="section-card featured-song-card">
+            <div class="featured-label">⭐ Top Pick for You</div>
+            <p class="featured-song-name" id="featured-name">{{ top.song_title }}</p>
+
+            <div class="play-options">
+                <a id="link-spotify" class="yt-link spotify-btn" href="{{ top.spotify }}" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+                        style="vertical-align:middle;margin-right:6px">
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.622.622 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 0 1-.277-1.215c3.809-.87 7.077-.496 9.712 1.115a.622.622 0 0 1 .207.857zm1.223-2.722a.78.78 0 0 1-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 0 1-.973-.519.781.781 0 0 1 .518-.973c3.632-1.102 8.147-.568 11.234 1.329a.78.78 0 0 1 .258 1.072zm.105-2.835C14.692 9.15 9.375 8.977 6.297 9.92a.937.937 0 1 1-.543-1.794c3.521-1.068 9.378-.862 13.076 1.305a.937.937 0 0 1-.916 1.636z" />
+                    </svg>
+                    Spotify
+                </a>
+                <a id="link-jiosaavn" class="yt-link saavn-btn" href="{{ top.jiosaavn }}" target="_blank">
+                    🎵 JioSaavn
+                </a>
+                <a id="link-ytmusic" class="yt-link ytmusic-btn" href="{{ top.ytmusic }}" target="_blank">
+                    ▶ YT Music
+                </a>
+                <a id="link-yt" class="yt-link ytsearch-btn" href="{{ top.youtube }}" target="_blank">
+                    🔍 YouTube
+                </a>
+            </div>
+            <p class="play-hint">Click any button to listen. <strong>Spotify</strong> & <strong>JioSaavn</strong>
+                recommended — no region blocks in India.</p>
+        </div>
+        {% endif %}
+
+        {% if show_only|default('') != 'story' and song_list|length > 0 %}
+        <!-- SONG LIST -->
+        <div class="section-card songs-card">
+            <div class="section-header">
+                <span class="section-icon">🎵</span>
+                <h2>All Songs ({{ song_list | length }} tracks)</h2>
+            </div>
+            <p class="songs-intro">Click a song to update the player above, then choose where to listen.</p>
+
+            <div class="song-list">
+                {% for song in song_list %}
+                <div class="song-row {% if loop.first %}top-song playing{% endif %}"
+                    data-title="{{ song.song_title | e }}" data-spotify="{{ song.spotify }}"
+                    data-saavn="{{ song.jiosaavn }}" data-ytmusic="{{ song.ytmusic }}" data-yt="{{ song.youtube }}">
+                    <div class="song-left">
+                        <span class="song-number">{{ loop.index }}</span>
+                        <div class="song-details">
+                            <span class="song-title-text">{{ song.song_title }}</span>
+                            {% if loop.first %}
+                            <span class="top-badge">⭐ TOP PICK</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="song-right">
+                        <a href="{{ song.spotify }}" target="_blank" class="btn-play-mini spotify-mini"
+                            onclick="event.stopPropagation()">🎵 Play</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <form action="/refresh_song" method="POST" style="margin-top: 1.5rem;">
+                <button type="submit" class="btn-shuffle">🔀 Shuffle Songs</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <a href="/" class="btn-back">← Try a Different Mood</a>
+    </div>
+
+    <script>
+        document.querySelectorAll('.song-row').forEach(function (row) {
+            row.addEventListener('click', function () {
+                var title = this.getAttribute('data-title');
+                var spotify = this.getAttribute('data-spotify');
+                var saavn = this.getAttribute('data-saavn');
+                var ytmusic = this.getAttribute('data-ytmusic');
+                var yt = this.getAttribute('data-yt');
+
+                document.getElementById('featured-name').textContent = title;
+                document.getElementById('link-spotify').href = spotify;
+                document.getElementById('link-jiosaavn').href = saavn;
+                document.getElementById('link-ytmusic').href = ytmusic;
+                document.getElementById('link-yt').href = yt;
+
+                document.querySelector('.featured-song-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                document.querySelectorAll('.song-row').forEach(function (r) { r.classList.remove('playing'); });
+                this.classList.add('playing');
+            });
+        });
+    </script>
+</body>
+
+</html>

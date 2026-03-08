@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mood Recommender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>How are you feeling?</h1>
+        <p class="subtitle">Pick your language & mood — or describe it in your own words.</p>
+
+        <div class="card">
+            <form action="/predict" method="POST">
+
+                <div class="lang-selection">
+                    <label for="language">Select Language:</label>
+                    <select name="language" id="language" class="lang-dropdown">
+                        <option value="english" selected>🇬🇧 English</option>
+                        <option value="telugu">🇮🇳 Telugu (తెలుగు)</option>
+                        <option value="hindi">🇮🇳 Hindi (हिंदी)</option>
+                    </select>
+                </div>
+
+                <div class="mood-options">
+                    <label class="radio-label">
+                        <input type="radio" name="mood_type" value="happy" checked onclick="toggleInput(false)">
+                        <span>😊 Happy</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="mood_type" value="sad" onclick="toggleInput(false)">
+                        <span>😢 Sad</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="mood_type" value="stress" onclick="toggleInput(false)">
+                        <span>😰 Stressed</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="mood_type" value="angry" onclick="toggleInput(false)">
+                        <span>😠 Angry</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="mood_type" value="custom" onclick="toggleInput(true)">
+                        <span>✍️ Describe</span>
+                    </label>
+                </div>
+
+                <div id="custom-input-container" style="display: none; margin-bottom: 1rem;">
+                    <textarea name="mood_text" id="mood-text"
+                        placeholder="e.g. I failed my exam today and feel lost..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Get Recommendations →</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleInput(show) {
+            const container = document.getElementById('custom-input-container');
+            const textarea = document.getElementById('mood-text');
+            container.style.display = show ? 'block' : 'none';
+            textarea.required = show;
+        }
+    </script>
+</body>
+
+</html>
